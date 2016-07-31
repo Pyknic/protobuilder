@@ -7,17 +7,16 @@
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>ProtoBuilder</name>
+    <name>Proto Builder</name>
+    <description>
+        A graphical tool for creating and modifying .proto-files for Google's 
+        ProtoBuffer system.
+    </description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mainClass>com.github.pyknic.protobuilder.MainApp</mainClass>
     </properties>
-
-    <organization>
-        <!-- Used as the 'Vendor' for JNLP generation -->
-        <name>Your Organisation</name>
-    </organization>
 
     <build>
         <plugins>
