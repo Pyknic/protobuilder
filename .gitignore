@@ -10,3 +10,10 @@
 /sonar-project.properties
 /settings.properties
 *~
+
+# =========================
+# Eclipse
+# =========================
+*.classpath
+*.project
+.settings/

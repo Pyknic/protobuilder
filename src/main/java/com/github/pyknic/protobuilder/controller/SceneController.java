@@ -71,7 +71,10 @@ public final class SceneController implements Initializable {
                     cell.setText(n.labelProperty().get());
                     cell.setGraphic(createGraphic(n));
                     cell.setContextMenu(createContextMenu(n));
-                    
+                    DragDropUtil.add(cell, "DragDropAction", (source, target) -> { 
+                    	System.out.println( "Soruce: " +((TreeCell) source).getText() );
+                    	System.out.println( "Target: " +((TreeCell) target).getText() );
+                    } );
                 } else {
                     cell.setText(null);
                     cell.setGraphic(null);
