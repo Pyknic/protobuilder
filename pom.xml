@@ -7,23 +7,69 @@
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
+    <!-- Project Information -->
     <name>Proto Builder</name>
     <description>
         A graphical tool for creating and modifying .proto-files for Google's 
         ProtoBuffer system.
     </description>
+    
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    
+    <!-- Developer's Contact Information -->
+    <developers>
+        <developer>
+            <id>Pyknic</id>
+            <name>Emil Forslund</name>
+            <timezone>America/Los Angeles</timezone>
+        </developer>
+        <developer>
+            <id>Gikkman</id>
+            <name>Simon Jonasson</name>
+            <timezone>Europe/Stockholm</timezone>
+        </developer>
+    </developers>
 
+    <!-- Distribution Management -->
+    <issueManagement>
+        <system>Github</system>
+        <url>https://github.com/pyknic/protobuilder/issues</url>
+    </issueManagement>
+    
+    <scm>
+        <connection>scm:git:git://github.com/pyknic/protobuilder.git</connection>
+        <developerConnection>scm:git:git@github.com:pyknic/protobuilder.git</developerConnection>
+        <url>https://github.com/pyknic/protobuilder/</url>
+    </scm>
+    
+    <!-- Properties -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mainClass>com.github.pyknic.protobuilder.MainApp</mainClass>
     </properties>
+    
+    <!-- Dependencies -->
+    <dependencies>
+        <dependency>
+            <groupId>de.jensd</groupId>
+            <artifactId>fontawesomefx</artifactId>
+            <version>8.9</version>
+        </dependency>
+    </dependencies>
 
+    <!-- Plugins -->
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.6</version>
+                <version>2.10</version>
                 <executions>
                     <execution>
                         <id>unpack-dependencies</id>
@@ -42,7 +88,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>1.2.1</version>
+                <version>1.5.0</version>
                 <executions>
                     <execution>
                         <id>unpack-dependencies</id>
@@ -82,7 +128,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <version>3.5.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -94,7 +140,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.16</version>
+                <version>2.19.1</version>
                 <configuration>
                     <additionalClasspathElements>
                         <additionalClasspathElement>${java.home}/lib/jfxrt.jar</additionalClasspathElement>
@@ -103,11 +149,4 @@
             </plugin>
         </plugins>
     </build>
-    <dependencies>
-        <dependency>
-            <groupId>de.jensd</groupId>
-            <artifactId>fontawesomefx</artifactId>
-            <version>8.9</version>
-        </dependency>
-    </dependencies>
 </project>
