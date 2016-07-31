@@ -61,7 +61,7 @@
             </graphic>
             <MenuItem fx:id="miNewMessage" text="Message" onAction="#newMessage">
                 <graphic>
-                    <FontAwesomeIconView glyphName="ENVELOPE" fill="#66cc8f" size="$ICON_SIZE" />
+                    <FontAwesomeIconView glyphName="ENVELOPE" fill="#66a4cc" size="$ICON_SIZE" />
                 </graphic>
             </MenuItem> 
             <MenuItem fx:id="miNewEnum" text="Enum" onAction="#newEnum">

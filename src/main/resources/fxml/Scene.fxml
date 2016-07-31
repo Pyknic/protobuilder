@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import java.lang.String?>
 
 <VBox xmlns="http://javafx.com/javafx/8.0.65" 
       xmlns:fx="http://javafx.com/fxml/1" 
@@ -13,20 +17,87 @@
       maxHeight="-Infinity" 
       minWidth="-Infinity" 
       minHeight="-Infinity" 
-      
+      prefWidth="600"
+      prefHeight="400"  
       fx:controller="com.github.pyknic.protobuilder.controller.SceneController">
+    
+    <fx:define>
+        <String fx:id="ICON_SIZE" fx:value="1.2em" />
+    </fx:define>
+    
     <children>
-        <MenuBar fx:id="menubar" 
-                 prefWidth="600.0"
-                 prefHeight="25.0" >
+        <MenuBar fx:id="menubar">
             <menus>
                 <Menu text="File" mnemonicParsing="false">
                     <items>
-                        <MenuItem fx:id="miNew"    text="_New Project"  onAction="#onNewProject"  mnemonicParsing="true" />
-                        <MenuItem fx:id="miOpen"   text="_Open Project" onAction="#onOpenProject" mnemonicParsing="true" />
-                        <MenuItem fx:id="miSave"   text="_Save"         onAction="#onSave"        mnemonicParsing="true" />
-                        <MenuItem fx:id="miSaveAs" text="Save _As..."   onAction="#onSaveAs"      mnemonicParsing="true" />
-                        <MenuItem fx:id="miClose"  text="Clos_e"        onAction="#onClose"       mnemonicParsing="true" />
+                        <MenuItem fx:id="miNew" 
+                                  text="_New Project" 
+                                  onAction="#onNewProject" 
+                                  mnemonicParsing="true">
+                            <graphic>
+                                <FontAwesomeIconView glyphName="FILE" 
+                                                     fill="#a4b6cd" 
+                                                     size="$ICON_SIZE"  />
+                            </graphic>
+                            <accelerator>
+                                <KeyCodeCombination code="N" control="DOWN" alt="UP" meta="UP" shift="DOWN" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <SeparatorMenuItem />
+                        <MenuItem fx:id="miOpen" 
+                                  text="_Open Project" 
+                                  onAction="#onOpenProject" 
+                                  mnemonicParsing="true">
+                            <graphic>
+                                <FontAwesomeIconView glyphName="FOLDER_OPEN" 
+                                                     fill="#d0b37a" 
+                                                     size="$ICON_SIZE"  />
+                            </graphic>
+                            <accelerator>
+                                <KeyCodeCombination code="O" control="DOWN" alt="UP" meta="UP" shift="DOWN" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <SeparatorMenuItem />
+                        <MenuItem fx:id="miSave" 
+                                  text="_Save" 
+                                  onAction="#onSave" 
+                                  mnemonicParsing="true">
+                            <graphic>
+                                <FontAwesomeIconView glyphName="DOWNLOAD" 
+                                                     fill="#7d8285" 
+                                                     size="$ICON_SIZE"  />
+                            </graphic>
+                            <accelerator>
+                                <KeyCodeCombination code="S" control="DOWN" alt="UP" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <MenuItem fx:id="miSaveAs" 
+                                  text="Save _As..." 
+                                  onAction="#onSaveAs" 
+                                  mnemonicParsing="true">
+                            <graphic>
+                                <FontAwesomeIconView glyphName="DOWNLOAD" 
+                                                     fill="#7d8285" 
+                                                     size="$ICON_SIZE"  />
+                            </graphic>
+                            <accelerator>
+                                <KeyCodeCombination code="S" control="DOWN" alt="UP" meta="UP" shift="DOWN" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <SeparatorMenuItem />
+                        <MenuItem fx:id="miClose" 
+                                  text="Clos_e" 
+                                  onAction="#onClose" 
+                                  mnemonicParsing="true">
+                            <graphic>
+                                <FontAwesomeIconView glyphName="SIGN_OUT" 
+                                                     fill="#873e3b" 
+                                                     size="$ICON_SIZE"  />
+                            </graphic>
+                            <accelerator>
+                                <KeyCodeCombination code="F4" control="UP" alt="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
                     </items>
                 </Menu>
             </menus>

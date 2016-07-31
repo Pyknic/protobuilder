@@ -56,7 +56,6 @@ public final class SceneController implements Initializable {
         
         treeView.setCellFactory(view -> {
             final TreeCell<Proto> cell = new TreeCell<>();
-            
             final ChangeListener<String> textChange = (ob, o, n) -> {
                 cell.setText(n);
             };
@@ -74,7 +73,7 @@ public final class SceneController implements Initializable {
                     DragDropUtil.add(cell, "DragDropAction", (source, target) -> { 
                     	System.out.println( "Soruce: " +((TreeCell) source).getText() );
                     	System.out.println( "Target: " +((TreeCell) target).getText() );
-                    } );
+                    });
                 } else {
                     cell.setText(null);
                     cell.setGraphic(null);
@@ -154,7 +153,7 @@ public final class SceneController implements Initializable {
             return GlyphsBuilder.create(FontAwesomeIconView.class)
                 .glyph(FontAwesomeIcon.ENVELOPE)
                 .size(ICON_SIZE)
-                .style("-fx-fill:#66cc8f")
+                .style("-fx-fill:#66a4cc")
                 .build();
         } else if (selected instanceof Parameter) {
             return GlyphsBuilder.create(FontAwesomeIconView.class)
