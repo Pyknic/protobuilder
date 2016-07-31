@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.RadioMenuItem?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import java.lang.String?>
+
+<ContextMenu xmlns:fx="http://javafx.com/fxml/1"
+             xmlns="http://javafx.com/javafx/8.0.65" 
+             fx:controller="com.github.pyknic.protobuilder.controller.ParameterContextMenuController">
+    
+    <fx:define>
+        <String fx:id="ICON_SIZE" fx:value="1.2em" />
+    </fx:define>
+    
+    <items>
+        <MenuItem fx:id="miRename" text="_Rename..." onAction="#rename">
+            <graphic>
+                <FontAwesomeIconView glyphName="PENCIL" fill="#cc9166" size="$ICON_SIZE" />
+            </graphic>
+        </MenuItem> 
+        <SeparatorMenuItem />
+        <Menu fx:id="miSetCategory" text="Set _Category..." onAction="#setCategory">
+            <graphic>
+                <FontAwesomeIconView glyphName="TAGS" fill="#ccbc66" size="$ICON_SIZE" />
+            </graphic>
+            
+            <fx:define>
+                <ToggleGroup fx:id="tgCategory" />
+            </fx:define>
+            
+            <items>
+                <RadioMenuItem toggleGroup="$tgCategory" text="Optional" selected="true" />
+                <RadioMenuItem toggleGroup="$tgCategory" text="Required" />
+                <RadioMenuItem toggleGroup="$tgCategory" text="Repeated" />
+            </items>
+        </Menu> 
+        <Menu fx:id="miSetType" text="Set _Type..." onAction="#setType">
+            <graphic>
+                <FontAwesomeIconView glyphName="CUBE" fill="#91cc66" size="$ICON_SIZE" />
+            </graphic>
+            
+            <fx:define>
+                <ToggleGroup fx:id="tgType" />
+            </fx:define>
+            
+            <items>
+                <RadioMenuItem toggleGroup="$tgType" text="Int 32" selected="true" />
+                <RadioMenuItem toggleGroup="$tgType" text="Int 64" />
+                <RadioMenuItem toggleGroup="$tgType" text="Float" />
+                <RadioMenuItem toggleGroup="$tgType" text="Double" />
+                <RadioMenuItem toggleGroup="$tgType" text="String" />
+                <RadioMenuItem toggleGroup="$tgType" text="Other..." />
+            </items>
+        </Menu> 
+        <SeparatorMenuItem />
+        <MenuItem fx:id="miRemove" text="R_emove" onAction="#remove">
+            <graphic>
+                <FontAwesomeIconView glyphName="MINUS_CIRCLE" fill="#cc6666" size="$ICON_SIZE" />
+            </graphic>
+        </MenuItem> 
+    </items>
+</ContextMenu>

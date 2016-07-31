@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ContextMenu?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import java.lang.String?>
+
+<ContextMenu xmlns:fx="http://javafx.com/fxml/1" 
+             xmlns="http://javafx.com/javafx/8.0.65" 
+             fx:controller="com.github.pyknic.protobuilder.controller.MessageContextMenuController">
+    
+    <fx:define>
+        <String fx:id="ICON_SIZE" fx:value="1.2em" />
+    </fx:define>
+    
+    <items>
+        <Menu text="_Add..." mnemonicParsing="true">
+            <graphic>
+                <FontAwesomeIconView glyphName="PLUS_CIRCLE" fill="#91cc66" size="$ICON_SIZE"  />
+            </graphic>
+            <MenuItem fx:id="miAddInt32" text="Int32" onAction="#addInt32"> 
+                <graphic>
+                    <FontAwesomeIconView glyphName="INFO" fill="#66a4cc" size="$ICON_SIZE" />
+                </graphic>
+            </MenuItem>
+            <MenuItem fx:id="miAddInt64" text="Int64" onAction="#addInt64">
+                <graphic>
+                    <FontAwesomeIconView glyphName="INFO" fill="#66a4cc" size="$ICON_SIZE" />
+                </graphic>
+            </MenuItem>
+            <SeparatorMenuItem />
+            <MenuItem fx:id="miAddFloat" text="Float" onAction="#addFloat">
+                <graphic>
+                    <FontAwesomeIconView glyphName="FACEBOOK" fill="#cc66b5" size="$ICON_SIZE" />
+                </graphic>
+            </MenuItem> 
+            <MenuItem fx:id="miAddDouble" text="Double" onAction="#addDouble">
+                <graphic>
+                    <FontAwesomeIconView glyphName="FACEBOOK" fill="#cc66b5" size="$ICON_SIZE" />
+                </graphic>
+            </MenuItem>
+            <SeparatorMenuItem />
+            <MenuItem fx:id="miAddBoolean" text="Boolean" onAction="#addBoolean">
+                <graphic>
+                    <FontAwesomeIconView glyphName="BOLD" fill="#66cbcc" size="$ICON_SIZE" />
+                </graphic>
+            </MenuItem> 
+            <SeparatorMenuItem />
+            <MenuItem fx:id="miAddString" text="String" onAction="#addString">
+                <graphic>
+                    <FontAwesomeIconView glyphName="FONT" fill="#cc9166" size="$ICON_SIZE" />
+                </graphic>
+            </MenuItem>
+        </Menu>
+        <Menu text="_New..." mnemonicParsing="true" >
+            <graphic>
+                <FontAwesomeIconView glyphName="STAR" fill="#ccbc66" size="$ICON_SIZE" />
+            </graphic>
+            <MenuItem fx:id="miNewMessage" text="Message" onAction="#newMessage">
+                <graphic>
+                    <FontAwesomeIconView glyphName="ENVELOPE" fill="#66cc8f" size="$ICON_SIZE" />
+                </graphic>
+            </MenuItem> 
+            <MenuItem fx:id="miNewEnum" text="Enum" onAction="#newEnum">
+                <graphic>
+                    <FontAwesomeIconView glyphName="CHECK_CIRCLE" fill="#a766cc" size="$ICON_SIZE" />
+                </graphic>
+            </MenuItem> 
+        </Menu>
+        <MenuItem fx:id="miRemove" text="Remove">
+            <graphic>
+                <FontAwesomeIconView glyphName="MINUS_CIRCLE" fill="#cc6666" size="$ICON_SIZE" />
+            </graphic>
+        </MenuItem>
+    </items>
+</ContextMenu>

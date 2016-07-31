@@ -1,0 +1,19 @@
+/* Tree View */
+.tree-view {
+    -fx-accent:      #bfdcff;
+    -fx-focus-color: #bfdcff;
+}
+
+.context-menu .menu-item {
+    -fx-padding: 8px;
+}
+
+.context-menu .menu-item .label {
+    -fx-padding: 0px 0px 0px 4px;
+}
+
+.context-menu .menu-item:focused,
+.context-menu .menu-item:focused .label {
+    -fx-background-color: #bfdcff;
+    -fx-text-fill:        #000;
+}

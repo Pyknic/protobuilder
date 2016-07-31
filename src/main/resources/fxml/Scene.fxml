@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/8.0.65" 
+      xmlns:fx="http://javafx.com/fxml/1" 
+      maxWidth="-Infinity" 
+      maxHeight="-Infinity" 
+      minWidth="-Infinity" 
+      minHeight="-Infinity" 
+      
+      fx:controller="com.github.pyknic.protobuilder.controller.SceneController">
+    <children>
+        <MenuBar fx:id="menubar" 
+                 prefWidth="600.0"
+                 prefHeight="25.0" >
+            <menus>
+                <Menu text="File" mnemonicParsing="false">
+                    <items>
+                        <MenuItem text="_New Project" onAction="#onNewProject" mnemonicParsing="true" />
+                        <MenuItem text="_Open Project" onAction="#onOpenProject" mnemonicParsing="true" />
+                        <MenuItem text="_Save" onAction="#onSave" mnemonicParsing="true" />
+                        <MenuItem text="Save _As..." onAction="#onSaveAs" mnemonicParsing="true" />
+                        <MenuItem text="Clos_e" onAction="#onClose" mnemonicParsing="true" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <BorderPane VBox.vgrow="ALWAYS" >
+            <center>
+                <TreeView fx:id="treeView" />
+            </center>
+        </BorderPane>
+    </children>
+</VBox>
