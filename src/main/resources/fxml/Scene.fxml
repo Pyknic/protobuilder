@@ -22,11 +22,11 @@
             <menus>
                 <Menu text="File" mnemonicParsing="false">
                     <items>
-                        <MenuItem text="_New Project" onAction="#onNewProject" mnemonicParsing="true" />
-                        <MenuItem text="_Open Project" onAction="#onOpenProject" mnemonicParsing="true" />
-                        <MenuItem text="_Save" onAction="#onSave" mnemonicParsing="true" />
-                        <MenuItem text="Save _As..." onAction="#onSaveAs" mnemonicParsing="true" />
-                        <MenuItem text="Clos_e" onAction="#onClose" mnemonicParsing="true" />
+                        <MenuItem fx:id="miNew"    text="_New Project"  onAction="#onNewProject"  mnemonicParsing="true" />
+                        <MenuItem fx:id="miOpen"   text="_Open Project" onAction="#onOpenProject" mnemonicParsing="true" />
+                        <MenuItem fx:id="miSave"   text="_Save"         onAction="#onSave"        mnemonicParsing="true" />
+                        <MenuItem fx:id="miSaveAs" text="Save _As..."   onAction="#onSaveAs"      mnemonicParsing="true" />
+                        <MenuItem fx:id="miClose"  text="Clos_e"        onAction="#onClose"       mnemonicParsing="true" />
                     </items>
                 </Menu>
             </menus>

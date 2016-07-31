@@ -1,6 +1,6 @@
 package com.github.pyknic.protobuilder.controller;
 
-import com.github.pyknic.protobuilder.proto.DefaultType;
+import com.github.pyknic.protobuilder.project.ProjectHelper;
 import com.github.pyknic.protobuilder.proto.Message;
 import com.github.pyknic.protobuilder.proto.Parameter;
 import com.github.pyknic.protobuilder.proto.Proto;
@@ -20,25 +20,28 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
  *
- * @author Emil
+ * @author Emil Forslund
  */
 public final class SceneController implements Initializable {
 
-    private @FXML MenuBar menubar;
+    private @FXML MenuItem miSave;
     private @FXML TreeView<Proto> treeView;
     
     private final TreeItem<Proto> root;
+    private final ProjectHelper helper;
     
-    public SceneController() {
-        root = new TreeItem<>();
+    public SceneController(Stage stage) {
+        this.root   = new TreeItem<>();
+        this.helper = new ProjectHelper(stage, root);
     }
 
     /**
@@ -49,6 +52,8 @@ public final class SceneController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        miSave.disableProperty().bind(helper.savedProperty());
+        
         treeView.setCellFactory(view -> {
             final TreeCell<Proto> cell = new TreeCell<>();
             
@@ -92,30 +97,11 @@ public final class SceneController implements Initializable {
         item1.getChildren().add(new TreeItem<>(new ParameterImpl("second", (Type) item0.getValue())));
     }
     
-    @FXML
-    void onNewProject(ActionEvent ev) {
-        
-    }
-    
-    @FXML
-    void onOpenProject(ActionEvent ev) {
-        
-    }
-    
-    @FXML
-    void onSave(ActionEvent ev) {
-        
-    }
-    
-    @FXML
-    void onSaveAs(ActionEvent ev) {
-        
-    }
-    
-    @FXML
-    void onClose(ActionEvent ev) {
-        
-    }
+    @FXML void onNewProject(ActionEvent ev) { helper.newProject(); }
+    @FXML void onOpenProject(ActionEvent ev) { helper.openProject(); }
+    @FXML void onSave(ActionEvent ev) { helper.save(); }
+    @FXML void onSaveAs(ActionEvent ev) { helper.saveAs(); }
+    @FXML void onClose(ActionEvent ev) { helper.close(); }
     
     private ContextMenu createContextMenu(Proto selected) {
         final String fxml;

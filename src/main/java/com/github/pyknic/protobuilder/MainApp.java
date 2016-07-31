@@ -1,5 +1,6 @@
 package com.github.pyknic.protobuilder;
 
+import com.github.pyknic.protobuilder.controller.SceneController;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
@@ -9,13 +10,16 @@ import javafx.stage.Stage;
 
 public final class MainApp extends Application {
     
-    public final static String VERSION = "1.0.0";
+    public final static String VERSION = "0.0.1";
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
+        final FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/Scene.fxml"));
+        loader.setControllerFactory(clazz -> new SceneController(stage));
         
-        Scene scene = new Scene(root);
+        final Parent root = loader.load();
+        final Scene scene = new Scene(root);
+        
         scene.getStylesheets().add("/styles/Styles.css");
         
         stage.setTitle("ProtoBuilder " + VERSION);
