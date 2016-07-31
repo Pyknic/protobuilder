@@ -1,5 +1,9 @@
 package com.github.pyknic.protobuilder.controller;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import com.github.pyknic.protobuilder.project.ProjectHelper;
 import com.github.pyknic.protobuilder.proto.Message;
 import com.github.pyknic.protobuilder.proto.Parameter;
@@ -7,12 +11,10 @@ import com.github.pyknic.protobuilder.proto.Proto;
 import com.github.pyknic.protobuilder.proto.Type;
 import com.github.pyknic.protobuilder.proto.observable.MessageImpl;
 import com.github.pyknic.protobuilder.proto.observable.ParameterImpl;
+
 import de.jensd.fx.glyphs.GlyphsBuilder;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -70,16 +72,33 @@ public final class SceneController implements Initializable {
                     cell.setText(n.labelProperty().get());
                     cell.setGraphic(createGraphic(n));
                     cell.setContextMenu(createContextMenu(n));
-                    DragDropUtil.add(cell, "DragDropAction", (source, target) -> { 
-                    	System.out.println( "Soruce: " +((TreeCell) source).getText() );
-                    	System.out.println( "Target: " +((TreeCell) target).getText() );
-                    });
                 } else {
                     cell.setText(null);
                     cell.setGraphic(null);
                     cell.setContextMenu(null);
                 }
             });
+            
+            DragDropUtil.add(cell, "DD", (source, target) -> {
+            	if( (source instanceof TreeCell<?>) && (target instanceof TreeCell<?>) ){
+            		TreeCell<Proto> sourceCell = (TreeCell<Proto>) source;
+            		TreeCell<Proto> targetCell = (TreeCell<Proto>) target;
+            		
+            		TreeItem<Proto> sourceTree = sourceCell.getTreeItem();
+            		TreeItem<Proto> targetTree = targetCell.getTreeItem();
+            		
+            		if(targetCell.getItem() instanceof Parameter  
+    				|| targetTree.getParent().equals(sourceTree) ){
+            			return;
+            		}
+            		
+            		sourceTree.getParent().getChildren().remove(sourceTree);
+            		targetTree.getChildren().add(sourceTree);
+            		            		
+            	} else {
+            		return;
+            	}
+            } );
             
             return cell;
         });

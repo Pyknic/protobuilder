@@ -17,3 +17,8 @@
     -fx-background-color: #bfdcff;
     -fx-text-fill:        #000;
 }
+
+/* Drag drop */
+.drag-drop-highlight{
+	-fx-background-color: lightgray ;
+}
