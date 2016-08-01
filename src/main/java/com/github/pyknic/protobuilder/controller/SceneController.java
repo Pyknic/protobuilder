@@ -18,6 +18,7 @@ import com.github.pyknic.protobuilder.project.directory.Handle;
 import java.io.IOException;
 import static java.util.Objects.requireNonNull;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TreeItem;
 
 /**
  * FXML Controller class
@@ -63,16 +64,31 @@ public final class SceneController implements Initializable {
                     cell.setText(n.getText().get());
                     cell.setGraphic(n.getGraphic());
                     cell.setContextMenu(createContextMenu(n));
-                    DragDropUtil.add(cell, "DragDropAction", (source, target) -> { 
-                    	System.out.println( "Soruce: " +((TreeCell) source).getText() );
-                    	System.out.println( "Target: " +((TreeCell) target).getText() );
-                    });
                 } else {
                     cell.setText(null);
                     cell.setGraphic(null);
                     cell.setContextMenu(null);
                 }
             });
+            
+            DragDropUtil.add(cell, "DD", (source, target) -> {
+            	if( (source instanceof TreeCell<?>) && (target instanceof TreeCell<?>) ){
+            		TreeCell<Handle> sourceCell = (TreeCell<Handle>) source;
+            		TreeCell<Handle> targetCell = (TreeCell<Handle>) target;
+            		
+            		TreeItem<Handle> sourceTree = sourceCell.getTreeItem();
+            		TreeItem<Handle> targetTree = targetCell.getTreeItem();
+            		
+//            		if(targetCell.getItem() instanceof Parameter                // <-- Parameter has been removed until file mappings has been implemented properly.
+//    				|| targetTree.getParent().equals(sourceTree) ){
+//            			return;
+//            		}
+            		
+            		sourceTree.getParent().getChildren().remove(sourceTree);
+            		targetTree.getChildren().add(sourceTree);
+            		            		
+            	}
+            } );
             
             return cell;
         });
