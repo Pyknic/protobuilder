@@ -1,29 +1,19 @@
 package com.github.pyknic.protobuilder.controller;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.github.pyknic.protobuilder.project.ProjectHelper;
-import com.github.pyknic.protobuilder.proto.Message;
-import com.github.pyknic.protobuilder.proto.Parameter;
 import com.github.pyknic.protobuilder.proto.Proto;
 import com.github.pyknic.protobuilder.proto.Type;
 import com.github.pyknic.protobuilder.proto.observable.MessageImpl;
 import com.github.pyknic.protobuilder.proto.observable.ParameterImpl;
+import com.github.pyknic.protobuilder.ui.ProtoTreeCellFactory;
 
-import de.jensd.fx.glyphs.GlyphsBuilder;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.stage.Stage;
@@ -56,53 +46,7 @@ public final class SceneController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         miSave.disableProperty().bind(helper.savedProperty());
         
-        treeView.setCellFactory(view -> {
-            final TreeCell<Proto> cell = new TreeCell<>();
-            final ChangeListener<String> textChange = (ob, o, n) -> {
-                cell.setText(n);
-            };
-            
-            cell.itemProperty().addListener((ov, o, n) -> {
-                if (o != null) {
-                    o.labelProperty().removeListener(textChange);
-                }
-                
-                if (n != null) {
-                    n.labelProperty().addListener(textChange);
-                    cell.setText(n.labelProperty().get());
-                    cell.setGraphic(createGraphic(n));
-                    cell.setContextMenu(createContextMenu(n));
-                } else {
-                    cell.setText(null);
-                    cell.setGraphic(null);
-                    cell.setContextMenu(null);
-                }
-            });
-            
-            DragDropUtil.add(cell, "DD", (source, target) -> {
-            	if( (source instanceof TreeCell<?>) && (target instanceof TreeCell<?>) ){
-            		TreeCell<Proto> sourceCell = (TreeCell<Proto>) source;
-            		TreeCell<Proto> targetCell = (TreeCell<Proto>) target;
-            		
-            		TreeItem<Proto> sourceTree = sourceCell.getTreeItem();
-            		TreeItem<Proto> targetTree = targetCell.getTreeItem();
-            		
-            		if(targetCell.getItem() instanceof Parameter  
-    				|| targetTree.getParent().equals(sourceTree) ){
-            			return;
-            		}
-            		
-            		sourceTree.getParent().getChildren().remove(sourceTree);
-            		targetTree.getChildren().add(sourceTree);
-            		            		
-            	} else {
-            		return;
-            	}
-            } );
-            
-            return cell;
-        });
-        
+        treeView.setCellFactory( new ProtoTreeCellFactory() );        
         treeView.setRoot(root);
         treeView.setShowRoot(false);
         
@@ -124,68 +68,4 @@ public final class SceneController implements Initializable {
     @FXML void onSaveAs(ActionEvent ev) { helper.saveAs(); }
     @FXML void onClose(ActionEvent ev) { helper.close(); }
     
-    private ContextMenu createContextMenu(Proto selected) {
-        final String fxml;
-        
-        if (selected instanceof Message) {
-            fxml = FXML_PREFIX + "Message" + FXML_SUFFIX;
-        } else if (selected instanceof Parameter) {
-            fxml = FXML_PREFIX + "Parameter" + FXML_SUFFIX;
-        } else {
-            throw new RuntimeException(
-                "Unexpected cell value '" + selected + "'."
-            );
-        }
-        
-        final FXMLLoader loader = new FXMLLoader(
-            SceneController.class.getResource(fxml)
-        );
-        
-        loader.setControllerFactory(clazz -> {
-            if (clazz == MessageContextMenuController.class) {
-                @SuppressWarnings("unchecked")
-                final Message message = (Message) selected;
-                return new MessageContextMenuController(message);
-            } else if (clazz == ParameterContextMenuController.class) {
-                @SuppressWarnings("unchecked")
-                final Parameter parameter = (Parameter) selected;
-                return new ParameterContextMenuController(parameter);
-            } else {
-                throw new RuntimeException(
-                    "Unknown controller class '" + clazz.getName() + "'."
-                );
-            }
-        });
-        
-        try {
-            final ContextMenu contextMenu = loader.load();
-            return contextMenu;
-        } catch (IOException ex) {
-            throw new RuntimeException(
-                "Error creating context menu from FXML file.", ex
-            );
-        }
-    }
-    
-    private Node createGraphic(Proto selected) {
-        if (selected instanceof Message) {
-            return GlyphsBuilder.create(FontAwesomeIconView.class)
-                .glyph(FontAwesomeIcon.ENVELOPE)
-                .size(ICON_SIZE)
-                .style("-fx-fill:#66a4cc")
-                .build();
-        } else if (selected instanceof Parameter) {
-            return GlyphsBuilder.create(FontAwesomeIconView.class)
-                .glyph(FontAwesomeIcon.CUBE)
-                .size(ICON_SIZE)
-                .style("-fx-fill:#91cc66")
-                .build();
-        } else {
-            return null;
-        }
-    }
-    
-    private final static String ICON_SIZE = "1.2em";
-    private final static String FXML_PREFIX = "/fxml/",
-                                FXML_SUFFIX = "ContextMenu.fxml";
 }

@@ -2,11 +2,11 @@ package com.github.pyknic.protobuilder;
 
 import com.github.pyknic.protobuilder.controller.SceneController;
 import javafx.application.Application;
-import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import static javafx.application.Application.launch;
 
 public final class MainApp extends Application {
     

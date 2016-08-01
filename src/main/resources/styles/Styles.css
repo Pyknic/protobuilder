@@ -19,6 +19,14 @@
 }
 
 /* Drag drop */
-.drag-drop-highlight{
-	-fx-background-color: lightgray ;
+.drag-drop-mid{
+    -fx-background-color: lightgray ;
+}
+
+.drag-drop-low{
+    -fx-effect: innershadow( one-pass-box , rgba(1,0,0,0.7) , 6, 0.5 , 2 , -6 );
+}
+
+.drag-drop-high{
+    -fx-effect: innershadow( one-pass-box , rgba(0,1,0,0.7) , 6, 0.5 , 2 , 6 );
 }
