@@ -2,7 +2,10 @@ package com.github.pyknic.protobuilder.controller;
 
 import java.util.Optional;
 
+import com.github.pyknic.protobuilder.proto.Proto;
+
 import javafx.scene.Node;
+import javafx.scene.control.TreeCell;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
@@ -22,7 +25,7 @@ public class DragDropUtil {
 	 * @param dragDropEventIdentifyer  the name for this drag-drop event
 	 * @param action				   the method to perform when a drop is performed
 	 */
-	public static void add(Node thisNode, String dragDropEventIdentifyer, DragDropAction action){			
+	public static void add(TreeCell<Proto> thisNode, String dragDropEventIdentifyer, DragDropAction action){			
 		//When a drag starts at thisNode
 		thisNode.setOnDragDetected( (event) -> {
 			Dragboard dragboard = thisNode.startDragAndDrop(TransferMode.MOVE);	//Signals that this node can handle drag events
@@ -38,6 +41,7 @@ public class DragDropUtil {
 			Dragboard dragboard = event.getDragboard();			
 			if(dragboard.hasString()						   
 			&& dragboard.getString().equals( dragDropEventIdentifyer ) ) {
+				
 				event.acceptTransferModes( TransferMode.MOVE ); 
 			}
 			event.consume();
@@ -45,7 +49,7 @@ public class DragDropUtil {
 		
 		//When another dragged node enters thisNode's space
 		thisNode.setOnDragEntered( (event) -> {
-			Optional<Node> source = getSource(event);
+			Optional<TreeCell<Proto>> source = getSource(event);
 			if( source.isPresent() ){
 				Dragboard dragboard = event.getDragboard();
 				if(dragboard.hasString()
@@ -60,7 +64,7 @@ public class DragDropUtil {
 		
 		//When another dragged node exits thisNode's space
 		thisNode.setOnDragExited( (event) -> {
-			Optional<Node> source = getSource(event);
+			Optional<TreeCell<Proto>> source = getSource(event);
 			if( source.isPresent() ){
 				Dragboard dragboard = event.getDragboard();
 				if(dragboard.hasString()
@@ -75,21 +79,24 @@ public class DragDropUtil {
 		
 		//When another dragged node is dropped into thisNode's space
 		thisNode.setOnDragDropped( (event) -> {
-			Optional<Node> source = getSource(event);
+			Optional<TreeCell<Proto>> source = getSource(event);
 			if( source.isPresent() ){
 				Dragboard dragboard = event.getDragboard();
 				boolean dragDropSucceeded = false;
 				if(dragboard.hasString()
 	            && dragboard.getString().equals(dragDropEventIdentifyer)
-	            && !source.get().equals(thisNode) ) {	
-					
-	                action.perform( source.get(), thisNode);
+	            && !source.get().equals(thisNode) ) {						
+	                action.perform( source.get(), thisNode, getLocation(thisNode, event));
 	                dragDropSucceeded = true;
 	            } 
 	            event.setDropCompleted(dragDropSucceeded);	
 			}
             event.consume();
 		} );
+	}
+	
+	public enum DropLocation{
+		HIGH, LOW, MID
 	}
 	
 	public interface DragDropAction{
@@ -99,17 +106,36 @@ public class DragDropUtil {
 		 * @param dragSource  the object the drag originated from
 		 * @param dropTarget  the object the drop was performed on
 		 */
-		void perform(Node dragSource, Node dropTarget);
+		void perform(Node dragSource, Node dropTarget, DropLocation location);
 	}
 	
 	//***********************************************************
 	// 				PRIVATE
 	//***********************************************************	
-	private static Optional<Node> getSource(DragEvent event){
+	private static DropLocation getLocation(TreeCell<?> target, DragEvent event){
+		//Get Y pos inside the cell we hover over
+		final double yPos = event.getY();
+		final double height = target.getHeight();
+		if( (height - yPos) / height > 0.75 ) {
+			return DropLocation.HIGH;
+		} else if ( (height - yPos) / height < 0.25 ) {
+			return DropLocation.LOW;
+		} else {
+			return DropLocation.MID;
+		}
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private static Optional<TreeCell<Proto>> getSource(DragEvent event){
 		final Object gesture = event.getGestureSource();
-		final Node sourceNode;
-		if( gesture != null && gesture instanceof Node){
-			sourceNode = (Node) gesture;
+		final TreeCell<Proto> sourceNode;
+		if( gesture != null && gesture instanceof TreeCell ){
+			TreeCell tempCell= (TreeCell) gesture;
+			if( tempCell.getItem() instanceof Proto ){
+				sourceNode = (TreeCell<Proto>) tempCell;
+			} else {
+				sourceNode = null;
+			}
 		} else {
 			sourceNode = null;
 		}
