@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ContextMenu?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import java.lang.String?>
+
+<ContextMenu xmlns:fx="http://javafx.com/fxml/1" 
+             xmlns="http://javafx.com/javafx/8.0.65" 
+             fx:controller="com.github.pyknic.protobuilder.controller.FolderContextMenuController">
+    
+    <fx:define>
+        <String fx:id="ICON_SIZE" fx:value="1.2em" />
+    </fx:define>
+    
+    <items>
+        <Menu text="_New..." mnemonicParsing="true" >
+            <graphic>
+                <FontAwesomeIconView glyphName="STAR" fill="#ccbc66" size="$ICON_SIZE" />
+            </graphic>
+            <MenuItem fx:id="miNewFolder" text="Folder" onAction="#newFolder">
+                <graphic>
+                    <FontAwesomeIconView glyphName="FOLDER" fill="#d0b37a" size="$ICON_SIZE" />
+                </graphic>
+            </MenuItem> 
+            <MenuItem fx:id="miNewMessage" text="Message" onAction="#newMessage">
+                <graphic>
+                    <FontAwesomeIconView glyphName="ENVELOPE" fill="#66a4cc" size="$ICON_SIZE" />
+                </graphic>
+            </MenuItem> 
+            <MenuItem fx:id="miNewEnum" text="Enum" onAction="#newEnum">
+                <graphic>
+                    <FontAwesomeIconView glyphName="CHECK_CIRCLE" fill="#a766cc" size="$ICON_SIZE" />
+                </graphic>
+            </MenuItem> 
+        </Menu>
+        <MenuItem fx:id="miRemove" text="Remove" onAction="#remove">
+            <graphic>
+                <FontAwesomeIconView glyphName="MINUS_CIRCLE" fill="#cc6666" size="$ICON_SIZE" />
+            </graphic>
+        </MenuItem>
+    </items>
+</ContextMenu>
