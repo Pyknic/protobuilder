@@ -1,6 +1,6 @@
 package com.github.pyknic.protobuilder.controller;
 
-import com.github.pyknic.protobuilder.proto.Message;
+import com.github.pyknic.protobuilder.project.directory.FileHandle;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -11,11 +11,11 @@ import static java.util.Objects.requireNonNull;
  *
  * @author Emil Forslund
  */
-public final class MessageContextMenuController implements Initializable {
+public final class FileContextMenuController implements Initializable {
     
-    private final Message selected;
+    private final FileHandle selected;
     
-    public MessageContextMenuController(Message selected) {
+    public FileContextMenuController(FileHandle selected) {
         this.selected = requireNonNull(selected);
     }
     

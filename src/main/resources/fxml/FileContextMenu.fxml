@@ -10,7 +10,7 @@
 
 <ContextMenu xmlns:fx="http://javafx.com/fxml/1" 
              xmlns="http://javafx.com/javafx/8.0.65" 
-             fx:controller="com.github.pyknic.protobuilder.controller.MessageContextMenuController">
+             fx:controller="com.github.pyknic.protobuilder.controller.FileContextMenuController">
     
     <fx:define>
         <String fx:id="ICON_SIZE" fx:value="1.2em" />
